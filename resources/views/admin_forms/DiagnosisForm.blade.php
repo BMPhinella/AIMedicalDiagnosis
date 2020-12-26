@@ -31,7 +31,8 @@
                     </tr>
                     <tr>
                         <td style="padding: 15px;text-align: left;">Diagnosis</td>
-                        
+                        <td style="padding: 15px;text-align: left;">The Patient has 
+                        a  {{$percentage}}% chance of {{$diagnosis}}</td>
                     </tr>
                     
                     @foreach($treatment as $treatment)

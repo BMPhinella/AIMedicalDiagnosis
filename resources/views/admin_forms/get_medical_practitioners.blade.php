@@ -6,7 +6,7 @@
 @endsection
 @section('main_content')
 @include('admin_layouts.datatables')
-<div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="MPModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,9 +38,9 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Role:</label>
                     <div class="col-sm-8">
-                        <select name="role" class="form-control" required>
+                    <select name="role" class="form-control" required>
                         <option value="">Select role</option>
-                            @foreach($roles as $role)
+                            @foreach($users as $role)
                             <option value="{{$role}}">{{$role}}</option>
                             @endforeach
                         </select>
@@ -61,14 +61,7 @@
                     </div>
                 </div><!-- form-group -->
 
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <button class="btn btn-primary mr5">Submit</button>
-                            <button type="reset" class="btn btn-dark">Reset</button>
-                        </div>
-                    </div>
-                </div><!-- panel-footer -->         
+                   
             
                         
                     </div>

@@ -12,22 +12,22 @@ use Carbon\Carbon;
 class dashboardController extends Controller
 {
     public function getDashboard(){
+        $count_patients_per_month = $this->getGraphs();
         $count_patients = patients::count();
         $count_visits = visits::count();
         $count_appointments = appointments::count();
-        return view('admin_layouts.dashboard',compact('count_patients','count_visits','count_appointments'));
+        return view('admin_layouts.dashboard',compact('count_patients','count_visits','count_appointments','count_patients_per_month'));
     }
     public function getGraphs(){
-        $today = Carbon::now();
-        $last_12_months = Carbon::now()->subMonth(12);
-        $patient_graph = patients::where('created_at', '>=', $today)
-            ->where('created_at', '<=', $last_12_months)
-            ->select(DB::raw("COUNT(*) as count, DATE_FORMAT(created_at, '%m') as created_at"))
-            
-            ->groupBy('created_at')
-            ->get();
-        dd($patient_graph);
-        return response()->json($data);
+        $months= [1,2,3,4,5,6,7,8,9,10,11,12];
+        $number_of_patients_per_month=[];
+        for($i=0;$i<=count($months);$i++){
+            if($i < 12){
+                array_push($number_of_patients_per_month,patients::whereMonth('created_at',$months[$i])->count());
+            }
+        }
+        // return json_encode($months);
+        return json_encode($number_of_patients_per_month);
     }
     public function getPieChart(){
         $data=patients::select('age','first_name')->get();

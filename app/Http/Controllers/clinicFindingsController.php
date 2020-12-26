@@ -22,16 +22,21 @@ class clinicFindingsController extends Controller
     } 
     public function createClinicFindings(Request $request)
     {
-        $request ->merge([
-            'symptoms' => implode(',', (array) $request->get('symptoms'))
-        ]);
-        //dd($request->all());
+        $request->merge(['symptoms' => implode(',', (array) $request->get('symptoms'))]);
+
         $findings = clinicFindings::create($request->all());
-        $patient = patients::where('id', $findings->patient_id)->first();
+        $patient_id = patients::where('id', $findings->patient_id)->value('id');
+        return redirect('/get-patient-diagnosis/'.$patient_id);
+    }
+    public function returnDiagnosisForm($patient_id){
+        $patient = patients::where('id', $patient_id)->first();
         $treatment = treatment::get();
+        //max id
+        $max_id     = clinicFindings::where('patient_id', $patient_id)->get()->MAX('id');
+        $diagnosis  = clinicFindings::where('patient_id', $patient_id)->where('id',$max_id)->value('diagnosis');
+        $percentage  = clinicFindings::where('patient_id', $patient_id)->where('id',$max_id)->value('percentage');
         $management = management::get();
-      //  return redirect()->back()->with('message', "Your changes were made successfully");
-      return view('admin_forms.DiagnosisForm',compact('patient', 'treatment', 'management'));
+        return view('admin_forms.DiagnosisForm',compact('patient', 'treatment', 'management','diagnosis','percentage'));
     }
     
     protected function getCreateClinicFindingsForm(){

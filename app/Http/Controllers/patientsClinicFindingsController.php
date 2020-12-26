@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\patientsClinicFindings;
 use App\Http\Resources\patientsClinicFindingsResource;
+use DB;
 
 class patientsClinicFindingsController extends Controller
 {
@@ -15,6 +16,25 @@ class patientsClinicFindingsController extends Controller
     public function createpatientsClinicFindings(){
         return patientsClinicFindings::create($this->validatePatientsClinicFindings());
     }
+
+    /**
+     * This function gets the patients clinical findings
+     */
+    protected function getClinicalFindings($patient_id){
+        //get the most recent sysmptoms fort this user, from the max id
+        //max id
+        $findings = [];
+        $max_id = DB::table('ClinicFindings')->where('patient_id',$patient_id)->get()->max('id');
+        $patient_findings = DB::table('ClinicFindings')->where('patient_id',$patient_id)->where('id',$max_id)
+        ->select('symptoms')
+        ->get();
+        foreach($patient_findings as $find){
+            array_push($findings,$find->symptoms);
+        }
+        return $findings;
+        
+    }
+
     protected function validatePatientsClinicFindings(){
         return request()->validate([
             'patient_id'=>'required',

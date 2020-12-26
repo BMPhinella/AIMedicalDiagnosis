@@ -40,6 +40,7 @@ Route::get('/get-clinicFindings','clinicFindingsController@getclinicFindings')->
 Route::get('/get-create-clinic-findings-form','clinicFindingsController@getCreateClinicFindingsForm')->name("Make Clinic Examinations");
 Route::get('/get-edit-clinic-findings-form/{id}','clinicFindingsController@getEditClinicFindingsForm')->name('Edit Clinic Examination');
 
+Route::get('/get-patient-diagnosis/{patient_id}','clinicFindingsController@returnDiagnosisForm');
 Route::get('/create-medicalPractitioners','medicalPractitionersController@validateMedicalPractitioners');
 Route::get('/change-medicalPractitioners/{id}','medicalPractitionersController@changeMedicalPractitioners');
 Route::get('/delete-medicalPractitioners/{id}','medicalPractitionersController@deleteMedicalPractitioners');
