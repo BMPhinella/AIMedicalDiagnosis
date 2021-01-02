@@ -12,25 +12,26 @@
         <div class="card">
             <form method="get" action ="/create-medicalPractitioners">
                 <div class="form-group" >
+                @foreach($users as $users)
                     <label class="col-sm-4 control-label">Name:<span class="asterisk">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="name" value="{{$medicalPractitioners->name}}" class="form-control" title="Field is required!" />
+                        <input type="text" name="name" value="{{$users->name}}" class="form-control" title="Field is required!" />
                     </div>
                 </div><!-- form-group -->
 
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Password:<span class="asterisk">*</span></label>
                     <div class="col-sm-8">
-                        <input type="password" value="{{$medicalPractitioners->password}}" name="password" class="form-control" title="Field is required!"/>
+                        <input type="password" value="{{$users->password}}" name="password" class="form-control" title="Field is required!"/>
                     </div>
                 </div><!-- form-group -->
 
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Role:</label>
                     <div class="col-sm-8">
-                        <select name="role" class="form-control" value="{{$medicalPractitioners->role}}" required>
+                        <select name="role" class="form-control" value="{{$users->role}}" required>
                         <option value="">Select role</option>
-                            @foreach($roles as $role)
+                            @foreach($users as $role)
                             <option value="{{$role}}">{{$role}}</option>
                             @endforeach
                         </select>
@@ -40,17 +41,17 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Email:<span class="asterisk">*</span></label>
                     <div class="col-sm-8">
-                        <input type="email" name="email" class="form-control" title="Field is required!" value="{{$medicalPractitioners->email}}" required/>
+                        <input type="email" name="email" class="form-control" title="Field is required!" value="{{$users->email}}" required/>
                     </div>
                 </div><!-- form-group -->
 
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Contact:<span class="asterisk">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="phone_No" class="form-control" title="Field is required!" value="{{$medicalPractitioners->phone_No}}" required/>
+                        <input type="text" name="phone_No" class="form-control" title="Field is required!" value="{{$users->phone_No}}" required/>
                     </div>
                 </div><!-- form-group -->
-
+                @endforeach
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-9 col-sm-offset-3">

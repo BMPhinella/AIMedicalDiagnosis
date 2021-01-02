@@ -7,7 +7,11 @@ use App\clinicFindings;
 use App\patients;
 use App\treatment;
 use App\management;
+use GuzzleHttp\RequestOptions as GRequest;
+use GuzzleHttp\Client;
 use App\Http\Resources\clinicFindingsResource;
+use ClinicFindings as GlobalClinicFindings;
+use Illuminate\Support\Facades\Http;
 
 class clinicFindingsController extends Controller
 {
@@ -18,20 +22,34 @@ class clinicFindingsController extends Controller
 
     public function getAllClinicFindings(){
         $allclinicFindings=clinicFindings::get();
-        return response()->json(allclinicFindings);
+        return response()->json();
     } 
     public function createClinicFindings(Request $request)
     {
-        $request ->merge([
-            'symptoms' => implode(',', (array) $request->get('symptoms'))
+        $request->merge(['symptoms' => implode(',', (array) $request->get('symptoms'))]);
+        // return $request->get('symptoms');
+        //send the json to the Api so i can get prediction percentage
+        $response = Http::post('http://127.0.0.1:5000/api/index/1', [
+            'symptoms' => [$request->get('symptoms')],
         ]);
-        //dd($request->all());
         $findings = clinicFindings::create($request->all());
-        $patient = patients::where('id', $findings->patient_id)->first();
+        $max_id = clinicFindings::where('patient_id', $findings->patient_id)->get()->MAX('id');
+
+        clinicFindings::where('id',$max_id)->update(array(
+            'diagnosis' => $response->body()
+        ));
+        $patient_id = patients::where('id', $findings->patient_id)->value('id');
+        return redirect('/get-patient-diagnosis/'.$patient_id);
+    }
+    public function returnDiagnosisForm($patient_id){
+        $patient = patients::where('id', $patient_id)->first();
         $treatment = treatment::get();
+        //max id
+        $max_id     = clinicFindings::where('patient_id', $patient_id)->get()->MAX('id');
+        $diagnosis  = clinicFindings::where('patient_id', $patient_id)->where('id',$max_id)->value('diagnosis');
+        $percentage  = clinicFindings::where('patient_id', $patient_id)->where('id',$max_id)->value('percentage');
         $management = management::get();
-      //  return redirect()->back()->with('message', "Your changes were made successfully");
-      return view('admin_forms.DiagnosisForm',compact('patient', 'treatment', 'management'));
+        return view('admin_forms.DiagnosisForm',compact('patient', 'treatment', 'management','diagnosis','percentage'));
     }
     
     protected function getCreateClinicFindingsForm(){

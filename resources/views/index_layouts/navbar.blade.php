@@ -10,14 +10,11 @@
                 <li class="nav-item active"><a href="#home" class="nav-link pl-0">Home</a></li>
                 <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="#resources" class="nav-link">Resources</a></li>
-                <li class="nav-item"><a href="#doctors" class="nav-link">Team</a></li>
                 @if (Route::has('login'))
                 @auth
                 @else
                 <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
-                @if (Route::has('register'))
-                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Sign Up</a></li>
-                @endif
+                
                 @endauth
                 @endif
             </ul>

@@ -17,12 +17,14 @@ class medicalPractitionersController extends Controller
 
     protected function getCreateMedicalPractitionersForm(){
         $roles = Role::pluck('name')->toArray();
+        $users = User::get();
         //dd($roles);
-        return view('admin_forms.medicalPractitionersForm', compact('medicalPractitioners','roles')); 
+        return view('admin_forms.medicalPractitionersForm', compact('roles')); 
     }
     protected function getEditMedicalPractitionersForm($id){
-        $edit_patient = medicalPractitioners::where('id',$id)->get();
-        return view('admin_forms.medical_practitioners_edit_form', compact('medicalPractitioners')); 
+        $users = User::get();
+        $edit_ = User::where('id',$id)->get();
+        return view('admin_forms.medical_practitioner_edit_form', compact('users','roles')); 
     }
 
     private function createMedicalPractitioners(){
@@ -52,7 +54,9 @@ class medicalPractitionersController extends Controller
     }
     protected function getMedicalPractitioners(){
         $medicalPractitioners= medicalPractitionersResource::collection(medicalPractitioners::all());
-        return view('admin_forms.get_medical_practitioner',compact('medicalPractitioners'));
+        $users = User::get();
+        $roles = Role::pluck('name')->toArray();
+        return view('admin_forms.get_medical_practitioners',compact('users'));
     }
     protected function changeMedicalPractitioners($id){
         if(empty(request()->name)){
@@ -75,7 +79,7 @@ class medicalPractitionersController extends Controller
         return redirect()->back()->with('msg', "Your changes were made successfully");
     }
     protected function deleteMedicalPractitioners($id){
-        medicalPractitioners::find($id)->delete();
-        return redirect()->back();
+        users::find($id)->delete();
+        return redirect()->back()->with('message', "The details have been deleted ");
     }
 }

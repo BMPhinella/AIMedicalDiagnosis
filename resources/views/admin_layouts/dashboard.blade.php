@@ -1,5 +1,6 @@
 @extends('admin_layouts.main')
 @section('page_css')
+<link rel="stylesheet" href="{{asset('Admin/mdb/css/mdb.min.css')}}">
 @endsection
 @section('main_content')
 <!-- BEGINNING OF CARDS -->
@@ -70,239 +71,61 @@
 <div class="row">
         <div class="col-md-6 mb30">
             <h5 class="lg-title mb10">Bar Chart</h5>
-            <p class="mb15">This chart represents the total number of patients registered monthly/p>
+            <p class="mb15">This chart represents the total number of patients registered monthly</p>
             <div id="" class="flotGraph">
-            <canvas id="barchart"  ></canvas>
+            <canvas id="lineChart" class="card"></canvas>
             </div>
         </div><!-- col-md-6 -->
         <div class="col-md-6 mb30">
             <h5 class="lg-title mb10">Pie Chart</h5>
-            <p class="mb15">Number of patients </p>
-            <div id="piechart" class="flotGraph"></div>
+            <p class="mb15">Number of patients according to gender </p>
+            <canvas id="pieChart" class="card"></canvas>
         </div><!-- col-md-6 -->
     </div><!-- row -->
 </div>
 <!-- END OF GRAPHS -->
 @endsection
 @section('page_js')
+<script type="text/javascript" src="{{asset('Admin/mdb/js/mdb.min.js')}}"></script>
 <script>
-    function renderBarGraph(data, labels) {
-    var ctx = document.getElementById("barchart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'PATIENTS',
-                data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true                        
-                    }
-                }]
-            },
-            title: {
-                display: true,
-                text: " Registerd patients against days "
-            },
-        }
-    });
+//line
+var ctxL = document.getElementById("lineChart").getContext('2d');
+var myLineChart = new Chart(ctxL, {
+type: 'line',
+data: {
+labels: ["Jan", "Feb", "Mar", "Apr", "May", "June", "July","Aug","Sept","Oct","Nov","Dec"],
+datasets: [{
+label: "Count of patients per month",
+data: {!! $count_patients_per_month !!},
+backgroundColor: [
+'rgba(105, 0, 132, .2)',
+],
+borderColor: [
+'rgba(200, 99, 132, .7)',
+],
+borderWidth: 2
+},
+]
+},
+options: {
+responsive: true
 }
-
-
-
-
-
-function getBarGraph() {   
-
-    $.ajax({
-        url: '/get-graphs',
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-        dataType: 'json',
-        success: function (res) {
-
-           // console.log(data);
-            var data = [];
-            var labels = [];
-
-            for (var i in res) {
-                data.push(res[i].age);
-                labels.push(res[i].first_name);
-
-            }
-
-            renderBarGraph(data, labels);
-        },
-        error: function (data) {
-
-            console.log(data);
-        }
-    });
-}
-$(document).ready(function(){
-    getBarGraph();
 });
-// $("#renderBtn").click(
-//     function () {
-//         getChartData();
-//     }
-// );
-
-
-
-
-
-function renderBarGraph(data, labels) {
-    var ctx = document.getElementById("barchart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'PATIENTS',
-                data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true                        
-                    }
-                }]
-            },
-            title: {
-                display: true,
-                text: " Registerd patients against days "
-            },
-        }
-    });
+//pie
+var ctxP = document.getElementById("pieChart").getContext('2d');
+var myPieChart = new Chart(ctxP, {
+type: 'pie',
+data: {
+labels: ["Girls", "Boys"],
+datasets: [{
+data: [300, 50],
+backgroundColor: ["#F7464A", "#46BFBD"],
+hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"]
+}]
+},
+options: {
+responsive: true
 }
-
-
-
-function getBarGraph() {   
-
-    $.ajax({
-        url: '/get-graphs',
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-        dataType: 'json',
-        success: function (res) {
-
-           // console.log(data);
-            var data = [];
-            var labels = [];
-
-            for (var i in res) {
-                data.push(res[i].age);
-                labels.push(res[i].first_name);
-
-            }
-
-            renderBarGraph(data, labels);
-        },
-        error: function (data) {
-
-            console.log(data);
-        }
-    });
-}
-$(document).ready(function(){
-    getBarGraph();
 });
-// $("#renderBtn").click(
-//     function () {
-//         getChartData();
-//     }
-// );
-
-
-function renderBarGraph(data, labels) {
-    var ctx = document.getElementById("barchart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'PATIENTS',
-                data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true                        
-                    }
-                }]
-            },
-            title: {
-                display: true,
-                text: " Registerd patients against days "
-            },
-        }
-    });
-}
-
-
-function getBarGraph() {   
-
-    $.ajax({
-        url: '/get-graphs',
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-        dataType: 'json',
-        success: function (res) {
-
-           // console.log(data);
-            var data = [];
-            var labels = [];
-
-            for (var i in res) {
-                data.push(res[i].age);
-                labels.push(res[i].first_name);
-
-            }
-
-            renderBarGraph(data, labels);
-        },
-        error: function (data) {
-
-            console.log(data);
-        }
-    });
-}
-$(document).ready(function(){
-    getBarGraph();
-});
-// $("#renderBtn").click(
-//     function () {
-//         getChartData();
-//     }
-// );
-
-
-
 </script>
 @endsection

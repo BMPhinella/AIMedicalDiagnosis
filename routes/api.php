@@ -30,4 +30,5 @@ Route::get('/get-all-diseasesTreatment','diseasesTreatmentController@getAllDisea
 Route::get('/get-all-patientsDiseases','patientsDiseasesController@getPatientsDiseases');
 Route::get('/get-all-patientsClinicFindings','patientsClinicFindingsController@getAllPatientsClinicFindings');
 Route::get('/get-all-management','managementController@getAllManagement');
+Route::get('/get-clinical-findings/{patient_id}','patientsClinicFindingsController@getClinicalFindings');
 

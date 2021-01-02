@@ -31,21 +31,8 @@
                     </tr>
                     <tr>
                         <td style="padding: 15px;text-align: left;">Diagnosis</td>
-                        
+                        <td style="padding: 15px;text-align: left;">{{$diagnosis}}</td>
                     </tr>
-                    
-                    @foreach($treatment as $treatment)
-                    <tr>
-                        <td style="padding: 15px;text-align: left;">Treatment</td>
-                        <td style="padding: 15px;text-align: left;">{{$treatment->name}}</td>
-                    </tr>
-                    @endforeach
-                    @foreach($management as $management)
-                    <tr>
-                        <td style="padding: 15px;text-align: left;">Management</td>
-                        <td style="padding: 15px;text-align: left;">{{$management->name}}</td>
-                    </tr>
-                    @endforeach
 
                 </table>
                 <footer>

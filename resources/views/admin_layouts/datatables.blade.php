@@ -161,7 +161,7 @@
 <div class="panel-heading">
     <h4 style="text-align: center" class="panel-title">{{request()->route()->getName()}}</h4>
     <div class="card-body text-right">
-        <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#visitModal">
+        <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#MPModal">
             Add Medical Practitioner
         </button>
     </div>
@@ -172,28 +172,25 @@
                 <tr>
                     <th>No</th>    
                     <th>Name</th>
-                    <th>Role</th>
                     <th>Email</th>
-                    <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
-            @foreach($medicalPractitioners as $id=>$medicalPractitioner)
+            @foreach($users as $id=>$users)
                 <tr>
                     <td>{{ $id +1}}</td>
-                    <td>{{$medicalPractitioner->name}}</td>   
-                    <td>{{$medicalPractitioner->role}}</td>  
-                    <td>{{$medicalPractitioner->email}}</td>
-                    <td>
-                    <a class="text-danger" href="/delete-medicalPractitioners/{medicalPractitioner->id}">Delete </a>
-                    <a href="/get-edit-medical-practitioners-form/{medicalPractitioner->id">Edit</a>
-                    </td>
+                    <td>{{$users->name}}</td>  
+                    <td>{{$users->email}}</td>
+                    
                 </tr>
                 @endforeach 
             </tbody>
         </table>
     @endif 
+
+
+
 
 
  
