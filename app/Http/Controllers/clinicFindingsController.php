@@ -26,6 +26,12 @@ class clinicFindingsController extends Controller
     } 
     public function createClinicFindings(Request $request)
     {
+        if(empty(request()->symptoms)){
+            return redirect()->back()->with('message','Please select a symptom to proceed');
+        }
+        if(empty(request()->patient_id)){
+            return redirect()->back()->with('message','Please select a patient to proceed');
+        }
         $request->merge(['symptoms' => implode(',', (array) $request->get('symptoms'))]);
         // return $request->get('symptoms');
         //send the json to the Api so i can get prediction percentage

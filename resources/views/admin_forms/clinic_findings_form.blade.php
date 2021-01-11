@@ -39,7 +39,7 @@
                         <div class="col-sm-8">
                             <div class="ckbox ckbox-default">
                                 <input type="checkbox" name="symptoms[]" value="Coma" id="checkboxDefault"/>
-                                <label for="checkboxDefault">Coma</label>
+                                <label for="checkboxDefault">unconscious</label>
                             </div>
                                 
                             <div class="ckbox ckbox-default">
@@ -212,7 +212,7 @@
                         <div class="col-sm-8">
                             <div class="ckbox ckbox-default">
                                 <input type="checkbox" name="symptoms[]" value="Death" id="checkboxDe"  />
-                                <label for="checkboxDe">Death</label>
+                                <label for="checkboxDe">minimal brain function</label>
                             </div>
                                 
                             <div class="ckbox ckbox-default">
@@ -422,7 +422,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="submit" name="submit" class="btn btn-primary" value="Submit"/> 
+                                    <input type="submit" name="Predict" class="btn btn-primary" value="Submit"/> 
                                 </div>
 
 

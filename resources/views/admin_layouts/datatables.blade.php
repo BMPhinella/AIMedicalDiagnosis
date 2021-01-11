@@ -59,6 +59,49 @@
 
 
 
+    @if(request()->route()->getName() == 'Clinic Findings Details')
+    <div class="panel-heading">
+        <h4 style="text-align: center" class="panel-title">{{request()->route()->getName()}}</h4>
+        
+    </div><!-- panel-heading -->
+            
+            <table id="basicTable1" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Patient </th>
+                        <th>Clinic Findings</th>
+                        <th>Diagnosis</th>
+                        <th>Date </th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                @foreach($appointments as $id=>$appointments)
+                    <tr>
+                        <td>{{ $id +1}}</td>
+                        <td>{{$appointments->patient_id}}</td>   
+                        <td>{{$appointments->medical_practitioner_id}}</td>  
+                        <td>{{$appointments->appointment_date}}</td>  
+                        <td>{{$appointments->appointment_time}}</td>   
+                        <td>{{$appointments->status}}</td> 
+                        <td>
+                        @can('delete_appointments')
+                        <a class="text-danger" href="/delete-appointments/{{$appointments->id}}">Delete</a>
+                        @endcan
+                        @can('change_appointmets')
+                        <a href="/get-edit-appointments-form/{{$appointments->id}}">Edit</a>
+                        @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+    @endif 
+    
+
+
+
 
 
 @if(request()->route()->getName() == 'Appointments Details')

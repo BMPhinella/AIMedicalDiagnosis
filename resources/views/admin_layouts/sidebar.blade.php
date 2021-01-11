@@ -15,36 +15,36 @@
         {{-- @hasanyrole('Doctor|Nurse|Trainee') --}}
         <li class="parent"><a href="#"><i class="fa fa-suitcase"></i> <span>Patients</span></a>
             <ul class="children">
-                @can('create_patient')
+                {{-- @can('create_patient') --}}
                 <li @if(request()->route()->getName()== 'Register Patient') class="active" @endif ><a href="/get-patients-create-form">New Patient</a></li>
-                @endcan
-                @can('read_patient')
+                {{-- @endcan --}}
+                {{-- @can('read_patient') --}}
                     <li @if(request()->route()->getName()== 'Patients Details') class="active" @endif><a href="/get-patient">Patients Records </a></li>
-                @endcan
+                {{-- @endcan --}}
             </ul>
         </li>
         {{-- @endhasanyrole --}}
         {{-- @hasanyrole('Admin|Doctor|Nurse|Trainee') --}}
         <li class="parent"><a href="#"><i class="fa fa-edit"></i> <span>Visits</span></a>
             <ul class="children">
-                @can('create_visits')
+                {{-- @can('create_visits') --}}
                 <li @if(request()->route()->getName()== 'Register Visit') class="active" @endif ><a href="/get-create-visits-form">New Visit</a></li>
-                @endcan
-                @can('read_visits')
+                {{-- @endcan --}}
+                {{-- @can('read_visits') --}}
                 <li @if(request()->route()->getName()== 'Register Patient') class="active" @endif ><a href="/get-visits">Visits Records</a></li>
-                @endcan
+                {{-- @endcan --}}
             </ul>
         </li>
         {{-- @endhasanyrole --}}
         {{-- @hasanyrole('Admin|Doctor|Nurse|Trainee') --}}
         <li class="parent"><a href="#"><i class="fa fa-bars"></i> <span>Appointments</span></a>
             <ul class="children">
-                @can('create_appointments')
+                {{-- @can('create_appointments') --}}
                 <li @if(request()->route()->getName()== 'Make Appointment') class="active" @endif><a href="/get-create-appointments-form">Make Appointment</a></li>
-                @endcan
-                @can('read_appointments')
+                {{-- @endcan --}}
+                {{-- @can('read_appointments') --}}
                 <li @if(request()->route()->getName()== 'Appointment Details') class="active" @endif><a href="/get-appointments">Appointment Records</a></li>
-                @endcan
+                {{-- @endcan --}}
             </ul>
         </li>
         {{-- @endhasanyrole --}}
