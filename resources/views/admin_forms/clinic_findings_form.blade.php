@@ -30,6 +30,9 @@
                                         <option value=""> select patient</option>
                                     @foreach($patients as $patient)
                                     <option value="{{$patient->id}}"> {{$patient->name}}</option>
+                                    <form  method="POST" action="">
+                                    <input type="hidden" value="$patient->id">
+                                    </form>
                                     @endforeach
                                     </select>
                                 </div>
